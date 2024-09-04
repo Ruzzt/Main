@@ -1,0 +1,17 @@
+release/chart.o
+release/editdialog.o
+release/kranData.o
+release/kranModel.o
+release/main.o
+release/mainwindow.o
+release/mysortproxymodel.o
+release/mytableview.o
+release/printpreview.o
+release/search.o
+release/moc_chart.o
+release/moc_editdialog.o
+release/moc_kranModel.o
+release/moc_mainwindow.o
+release/moc_mysortproxymodel.o
+release/moc_printpreview.o
+release/moc_search.o
