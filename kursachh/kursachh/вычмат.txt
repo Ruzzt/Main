@@ -1,0 +1,155 @@
+2. Метод итерации
+
+def f(x):
+    return x**3-2.2*(x**2)+4.84*x-10.648
+a = 0
+b = 3
+e = 0.0001
+maxi = 100
+
+if f(a) * f(b) > 0:
+    print("Уравнение не удовлетворяет условиям метода половинного деления на отрезке [0;3]")
+else:
+    iterations = 0
+    while iterations < maxi:
+        c = (a + b) / 2
+        if abs(f(c)) < e:
+            break
+        elif f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+        iterations += 1
+        print(f"Iteration {iterations}: a={round(a,4)}, b={round(b,4)}, c={round(c,4)}, f(c)={round(f(c),4)}")
+    print("Приближенное значение корня уравнения:", round(c,4))
+    
+ ответ
+Iteration 1: a=1.5, b=3, c=1.5, f(c)=-4.963
+Iteration 2: a=1.5, b=2.25, c=2.25, f(c)=0.4951
+Iteration 3: a=1.875, b=2.25, c=1.875, f(c)=-2.7156
+Iteration 4: a=2.0625, b=2.25, c=2.0625, f(c)=-1.2504
+Iteration 5: a=2.1562, b=2.25, c=2.1562, f(c)=-0.4152
+Iteration 6: a=2.1562, b=2.2031, c=2.2031, f(c)=0.0303
+Iteration 7: a=2.1797, b=2.2031, c=2.1797, f(c)=-0.1948
+Iteration 8: a=2.1914, b=2.2031, c=2.1914, f(c)=-0.0829
+Iteration 9: a=2.1973, b=2.2031, c=2.1973, f(c)=-0.0264
+Iteration 10: a=2.1973, b=2.2002, c=2.2002, f(c)=0.0019
+Iteration 11: a=2.1987, b=2.2002, c=2.1987, f(c)=-0.0123
+Iteration 12: a=2.1995, b=2.2002, c=2.1995, f(c)=-0.0052
+Iteration 13: a=2.1998, b=2.2002, c=2.1998, f(c)=-0.0017
+Iteration 14: a=2.1998, b=2.2, c=2.2, f(c)=0.0001
+Iteration 15: a=2.1999, b=2.2, c=2.1999, f(c)=-0.0008
+Iteration 16: a=2.2, b=2.2, c=2.2, f(c)=-0.0003
+Iteration 17: a=2.2, b=2.2, c=2.2, f(c)=-0.0001
+Приближенное значение корня уравнения: 2.2
+
+
+
+
+3.Метод ньютона
+def f(x):
+    return x**3 - 2.2*x**2 + 4.84*x - 10.648
+
+def df(x):
+    return 3*x**2 - 4.4*x + 4.84
+
+def new_method(initial, e):
+    x = initial
+    iteration = 0
+
+    print(f"Iteration {iteration}: x = {x:.3f}, f(x) = {f(x):.3f}")
+
+    while abs(f(x)) > e:
+        x = x - f(x) / df(x)
+        iteration += 1
+        print(f"Iteration {iteration}: x = {x:.3f}, f(x) = {f(x):.3f}")
+
+    return x, iteration
+
+# Начальное предположение
+initial = 3.0
+# Точность
+e = 0.0001
+
+result, iterations = new_method(initial, e)
+
+print(f"\nРешение: x = {result:.3f}")
+print(f"Количество итераций: {iterations}")
+
+
+
+Iteration 1: x = 2.406, f(x) = 2.190
+Iteration 2: x = 2.218, f(x) = 0.171
+Iteration 3: x = 2.200, f(x) = 0.001
+Iteration 4: x = 2.200, f(x) = 0.000
+
+Решение: x = 2.200
+Количество итераций: 4
+
+4. Метод хорд
+def f(x):
+    return  x**3 - 2.2*x**2 + 4.84*x - 10.648
+
+a = 0
+b = 3
+e = 0.0001
+max_iterations = 100
+
+if f(a) * f(b) >= 0:
+    print("На заданном отрезке нет корней")
+else:
+    iterations = 0
+    while iterations < max_iterations:
+        x1 = b - (f(b) * (b - a)) / (f(b) - f(a))
+        if abs(x1 - b) < e:
+            break
+        a = b
+        b = x1
+        iterations += 1
+        print(f"Iteration {iterations}: x={round(x1,3)}, f(x)={round(f(x1),3)}")
+
+    print("Приближенное значение корня уравнения:", round(x1,3))
+
+ответ
+Iteration 1: x=1.471, f(x)=-5.107
+Iteration 2: x=1.953, f(x)=-2.134
+Iteration 3: x=2.3, f(x)=1.013
+Iteration 4: x=2.188, f(x)=-0.111
+Iteration 5: x=2.199, f(x)=-0.005
+Iteration 6: x=2.2, f(x)=0.0
+Приближенное значение корня уравнения: 2.2
+
+5. метод хор и касательных
+def f(x):
+    return  x**3 - 2.2*x**2 + 4.84*x - 10.648
+
+def f_prime(x):
+    return 3*x**2 - 4.4*x + 4.84
+
+a = 0
+b = 3
+tolerance = 0.0001
+max_iterations = 100
+
+if f(a) * f(b) >= 0:
+    print("На заданном отрезке нет корней")
+else:
+    iterations = 0
+    x1 = b
+    while iterations < max_iterations:
+        x1 = round(x1, 3) - f(round(x1, 3)) / f_prime(x1)
+        if abs(f(round(x1, 3))) < tolerance:
+            break
+        iterations += 1
+        print(f"Iteration {iterations}: x = {round(x1, 3)}, f(x) = {round(f(x1), 3)}")
+
+    print("Приближенное значение корня уравнения:", round(x1, 3))
+
+ответ
+Iteration 1: x = 2.406, f(x) = 2.19
+Iteration 2: x = 2.218, f(x) = 0.171
+Приближенное значение корня уравнения: 2.2
+
+
+
+
